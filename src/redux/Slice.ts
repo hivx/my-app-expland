@@ -88,7 +88,7 @@ const todoSlice = createSlice({
 });
 
 //thu nghiem van chua xong voi todos
-const selectTodoState = (state: RootState) => state.todo;
+const selectTodoState = (state: RootState) => state.arrayTodo;
 
 export const select = createSelector(
   selectTodoState,

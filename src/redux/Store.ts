@@ -9,7 +9,7 @@ export interface Todo {
 
 export const store = configureStore({
   reducer: {
-    todo: todoReducer,
+    arrayTodo: todoReducer,
   },
 });
 

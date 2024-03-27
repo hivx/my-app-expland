@@ -1,17 +1,17 @@
 import React from 'react';
-import './App.css';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import InputFeild from './components/InputFeild';//import inputfeild
-import { RootState } from "./redux/Store"
+import { RootState } from "./redux/Store";
 import { addTodo, setTodo, setTodos, setCompletedTodos } from './redux/Slice';
 import TodoList from './components/TodoList';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { select } from './redux/Slice';
+import { StyledApp, StyleHeading } from './components/Container.styled';
 
 const App: React.FC = () => {
   const todo = useSelector(select);
-  const todos = useSelector((state: RootState) => state.todo.todos);
-  const completedTodos = useSelector((state: RootState) => state.todo.completedTodos);
+  const todos = useSelector((state: RootState) => state.arrayTodo.todos);
+  const completedTodos = useSelector((state: RootState) => state.arrayTodo.completedTodos);
   const dispatch = useDispatch();
 
   //tao su kien xu ly form ma khong load trang, khi submit
@@ -19,7 +19,8 @@ const App: React.FC = () => {
     e.preventDefault();
 
     //xu ly tao 1 input moi khi da nhap 1 cong viec
-    if (todo) {
+    //neu todo khong phai la null hoac undefined va gia tri todo.todo(todo input) cung phai ton tai truoc khi thuc hien them moi 1 todo
+    if (todo && todo.todo) {
       dispatch(addTodo(todo.todo));
       dispatch(setTodo(""));
     }
@@ -43,7 +44,7 @@ const App: React.FC = () => {
     }
 
     let add;
-    let active = [...todos];
+    let active = [...todos]; //copy lai mang
     let complete = [...completedTodos];
     
     if (source.droppableId === "TodosList") {
@@ -66,8 +67,8 @@ const App: React.FC = () => {
   };
   return (
     //HTML
-    <div className="App">
-        <span className="heading"> Taskify </span>
+    <StyledApp theme={{ fontUrl: "https://fonts.googleapis.com/css2?family=Pacifico&display=swap"}}>
+        <StyleHeading> ✨ Taskify </StyleHeading>
         <InputFeild 
           todo={todo.todo}
           handleAdd={handleAdd}
@@ -78,7 +79,7 @@ const App: React.FC = () => {
             completedTodos={completedTodos}
           />
         </DragDropContext>
-    </div>
+    </StyledApp>
   );
 }
 

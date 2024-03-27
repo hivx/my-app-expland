@@ -1,9 +1,8 @@
 import React from 'react'
-import "./Styles.css";
 import { Todo } from '../redux/Store';
 import SingleTodo from './SingleTodo';
 import { Droppable } from 'react-beautiful-dnd';
-
+import { StyleContainer, StyleTodos, StyleTodosRemove, StyleTodosHeading } from './Container.styled'
 
 interface Props {
   todos: Todo[];
@@ -11,19 +10,20 @@ interface Props {
 }
 // const TodoList = ({todos, setTodos, CompletedTodos, setCompletedTodos}: Props  ) => {//Functional Component
 const TodoList: React.FC<Props> = ({todos, completedTodos}) => {
+  
   return (
-    <div className="container">
+    <StyleContainer>
       <Droppable droppableId="TodosList">
-        {//snapshot de xu ly khi keo tha cac singletodo
+        {//snapshot de xu ly them css cho class todo khi keo tha
           (provided, snapshot) => (
-          <div 
-            className={`todos ${snapshot.isDraggingOver ? "dragactive" : ""}`} 
+          <StyleTodos
             ref={provided.innerRef}
             {...provided.droppableProps} //truyen du lieu vao mang
+            isDraggingOver={snapshot.isDraggingOver}
           >
-          <span className="todos__heading">
+          <StyleTodosHeading>
             Active Tasks
-          </span>
+          </StyleTodosHeading>
           {todos.map((todo, index) => (// lap qua cac phan tu trong mang
               <SingleTodo
                 index={index}
@@ -33,21 +33,22 @@ const TodoList: React.FC<Props> = ({todos, completedTodos}) => {
           ))}
           {/*luu lai trang thai*/}
           {provided.placeholder}
-          </div>
+          </StyleTodos>
           )
         }
         </Droppable>
         <Droppable droppableId="Completed Tasks">
         {
           (provided, snapshot) => (
-          <div 
-            className={`todos remove ${snapshot.isDraggingOver ? "dragcomplete" : ""}`} 
+          <StyleTodosRemove 
+          //todos remove tuc la ap dung 2 css todo va remove
             ref={provided.innerRef}
             {...provided.droppableProps}
+            isDraggingOver={snapshot.isDraggingOver}
           >
-          <span className="todos__heading">
+          <StyleTodosHeading>
             Completed Tasks
-          </span>
+          </StyleTodosHeading>
           {completedTodos.map((todo, index) => (// lap qua cac phan tu trong mang
               <SingleTodo
                 index={index}
@@ -57,11 +58,11 @@ const TodoList: React.FC<Props> = ({todos, completedTodos}) => {
           ))}
           {/*luu lai trang thai*/}
           {provided.placeholder}            
-          </div>
+          </StyleTodosRemove>
           )
         }
       </Droppable>
-    </div>
+    </StyleContainer>
   );
 };
 

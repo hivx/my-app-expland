@@ -1,16 +1,17 @@
 //Xu ly tung todo
 import React, { useEffect, useRef, useState } from 'react';
 import { Todo } from '../redux/Store';
-import { CiEdit } from 'react-icons/ci';
-import { MdOutlineDelete, MdOutlineDone } from 'react-icons/md';
-import "./Styles.css";
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import { StyleIcons, IconsContainer, InputTodosText, InputTodosTextDone, StyleTodosSingle } from './Container.styled'
 import {useDispatch} from 'react-redux'
 import { Draggable } from 'react-beautiful-dnd';
 import { doneTodo, deleteTodo, editSingle } from '../redux/Slice';
 
 //dung interface cung duoc
 type Props = {
-  index: number;
+  index: number,
   todo: Todo,
 }
 
@@ -48,51 +49,44 @@ const SingleTodo  = ({index, todo}:Props) => {
       {
         (provided, snapshot) => (
           //HTML (JSX)
-          <form 
-            className={`todos__single ${snapshot.isDragging ? "drag" : ""}`} //tao dieu kien cho classname
+          <StyleTodosSingle 
             onSubmit={(e) => handleEdit(e, todo.id, editTodo)}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
+            isDragging={snapshot.isDragging}
           >
             { edit ? (
               //input cho phep chinh sua todo
-              <input
+              <InputTodosText
                 ref={inputRef}
                 value={editTodo}
                 onChange={(e) => setEditTodo(e.target.value)}
-                className="todos__single--text"
               />
               ) : (
-                todo.isDone ? (
-                  //<s /> la viet van ban voi phan gach ngang, span thi khong
-                  <s className="todos__single--text">
-                    {todo.todo}
-                  </s>) : (
-                  <span className="todos__single--text">
-                    {todo.todo}
-                  </span>
-                )
+                <InputTodosTextDone isDone={todo.isDone}>
+                  {todo.todo}
+                </InputTodosTextDone>
               )
             }
 
-            <div>
+            <IconsContainer>
               {/* doi gia tri edit */}
-                <span className="icon"  onClick={() =>{
+                <StyleIcons  onClick={() =>{
                   if (!edit && !todo.isDone) {
                     setEdit(!edit);
                   }
                 }}>
-                  <CiEdit />
-                </span>
-                <span className="icon"  onClick={() => handleDelete(todo.id)}>
-                  <MdOutlineDelete />
-                </span>
-                <span className="icon" onClick={() => handleDone(todo.id)}>
-                  <MdOutlineDone />
-                </span>
-            </div>
-          </form>
+                  <EditOutlinedIcon />
+                </StyleIcons>
+                <StyleIcons  onClick={() => handleDelete(todo.id)}>
+                  <DeleteOutlineIcon />
+                </StyleIcons>
+                <StyleIcons onClick={() => handleDone(todo.id)}>
+                  <CheckOutlinedIcon /> 
+                </StyleIcons>
+            </IconsContainer>
+          </StyleTodosSingle>
         )
       }   
     </Draggable>
