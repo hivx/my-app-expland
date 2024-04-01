@@ -2,7 +2,8 @@ import React from 'react'
 import { Todo } from '../redux/Store';
 import SingleTodo from './SingleTodo';
 import { Droppable } from 'react-beautiful-dnd';
-import { StyleContainer, StyleTodos, StyleTodosRemove, StyleTodosHeading } from './Container.styled'
+import { StyleContainer, StyleTodos, StyleTodosRemove,
+  StyleTodosHeading } from '../Container.styled'
 
 interface Props {
   todos: Todo[];
@@ -40,7 +41,7 @@ const TodoList: React.FC<Props> = ({todos, completedTodos}) => {
         <Droppable droppableId="Completed Tasks">
         {
           (provided, snapshot) => (
-          <StyleTodosRemove 
+          <StyleTodosRemove
           //todos remove tuc la ap dung 2 css todo va remove
             ref={provided.innerRef}
             {...provided.droppableProps}

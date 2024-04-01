@@ -1,18 +1,33 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import InputFeild from './components/InputFeild';//import inputfeild
 import { RootState } from "./redux/Store";
-import { addTodo, setTodo, setTodos, setCompletedTodos } from './redux/Slice';
+import InputFeild from './components/InputFeild';//import inputfeild
 import TodoList from './components/TodoList';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { select } from './redux/Slice';
-import { StyledApp, StyleHeading } from './components/Container.styled';
+import { addTodo, setTodo, setTodos, setCompletedTodos, select } from './redux/SliceTodo';
+import { StyledApp, StyleHeading, StyleMenu, StyleMenuList,
+  StyleContainerHeading } from './Container.styled';
+import InfoForm from './forms/FormHome';
+import { 
+  Routes, 
+  Route, 
+  useNavigate,
+} from "react-router-dom";
+import EditForm from './forms/FormEdit';
 
 const App: React.FC = () => {
   const todo = useSelector(select);
   const todos = useSelector((state: RootState) => state.arrayTodo.todos);
   const completedTodos = useSelector((state: RootState) => state.arrayTodo.completedTodos);
+  const formData = useSelector((state: RootState) => state.formData);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleExitClick = () => {
+    setTimeout(() => {
+      navigate('/');
+    }, 500);
+  };
 
   //tao su kien xu ly form ma khong load trang, khi submit
   const handleAdd = (e: React.FormEvent) => {
@@ -65,21 +80,48 @@ const App: React.FC = () => {
     dispatch(setCompletedTodos(complete));
     // setcompletedTodos(complete);
   };
+
   return (
     //HTML
-    <StyledApp theme={{ fontUrl: "https://fonts.googleapis.com/css2?family=Pacifico&display=swap"}}>
-        <StyleHeading> ✨ Taskify </StyleHeading>
-        <InputFeild 
-          todo={todo.todo}
-          handleAdd={handleAdd}
-        />
-        <DragDropContext onDragEnd={onDragEnd}>
-          <TodoList 
-            todos={todos} 
-            completedTodos={completedTodos}
-          />
-        </DragDropContext>
-    </StyledApp>
+      <StyledApp>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <StyleHeading> ✨ Taskify </StyleHeading>
+              <InfoForm />
+            </>
+          } />
+          <Route path="/todo" element={
+            <>
+              <StyleContainerHeading>
+                <StyleMenuList>
+                  <StyleMenu>{`${formData.lastname} ${formData.firstname}`}</StyleMenu>
+                  <StyleMenu>{`${formData.age} years old`}</StyleMenu>
+                  <StyleMenu>{formData.job}</StyleMenu>
+                  <StyleMenu onClick={handleExitClick}>Exit</StyleMenu>
+                </StyleMenuList>
+                <StyleHeading> ✨ Taskify </StyleHeading>
+              </StyleContainerHeading>
+              <InputFeild
+                todo={todo.todo}
+                handleAdd={handleAdd} 
+              />
+              <DragDropContext onDragEnd={onDragEnd}>
+                <TodoList
+                  todos={todos}
+                  completedTodos={completedTodos} 
+                />
+              </DragDropContext>
+            </>
+          } />
+          <Route path="/edit" element={
+            <>
+              <StyleHeading> ✨ Taskify </StyleHeading>
+              <EditForm />
+            </>
+          } />
+        </Routes>
+      </StyledApp>
   );
 }
 

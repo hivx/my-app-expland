@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import todoReducer from './Slice';
+import todoReducer from './SliceTodo';
+import formReducer from './SliceForm';
 
 export interface Todo {
   id: number;
@@ -10,6 +11,7 @@ export interface Todo {
 export const store = configureStore({
   reducer: {
     arrayTodo: todoReducer,
+    formData: formReducer,
   },
 });
 

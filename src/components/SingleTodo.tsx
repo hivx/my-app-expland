@@ -4,10 +4,11 @@ import { Todo } from '../redux/Store';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
-import { StyleIcons, IconsContainer, InputTodosText, InputTodosTextDone, StyleTodosSingle } from './Container.styled'
+import { StyleIcons, IconsContainer, InputTodosText, InputTodosTextDone, 
+  StyleTodosSingle } from '../Container.styled'
 import {useDispatch} from 'react-redux'
 import { Draggable } from 'react-beautiful-dnd';
-import { doneTodo, deleteTodo, editSingle } from '../redux/Slice';
+import { doneTodo, deleteTodo, editSingle } from '../redux/SliceTodo';
 
 //dung interface cung duoc
 type Props = {

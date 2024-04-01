@@ -1,28 +1,59 @@
 import styled from "styled-components";
 import img from './bg.png'
-
+import TextField from '@mui/material/TextField'
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import { MenuItem, MenuList } from '@mui/material';
 
 export const StyledApp = styled.div`
-@import url('https://fonts.googleapis.com/css2?family=Workbench&display=swap')
+    @import url('https://fonts.googleapis.com/css2?family=Workbench&display=swap')
     width:  100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     background-color: #42c7ba;
     font-family: "Workbench", cursive;
+`;
+
+export const StyleContainerHeading = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+`;
+
+export const StyleMenuList = styled(MenuList)`
+    display: flex;
+    justify-content: flex-start;
+    color: black;
+    font-size: 30px;
+`;
+
+export const StyleMenu = styled(MenuItem)`
+
 `;
 
 export const StyleHeading = styled.div`
     text-transform: uppercase;
     font-size: 40px;
-    margin: 30px 0;
     color: white;
     z-index: 1;
     text-align: center;
+    margin-bottom: 10px;
     @media (max-width: 800px) {
-        margin: 15px 0;
+        margin: auto;
         font-size: 35px;
+    }
+`;
+export const StyleInput = styled.form`
+    display: flex;
+    width: 95%;
+    position: relative;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    @media(max-width: 700px) {
+        width: 95%;
     }
 `;
 
@@ -32,7 +63,7 @@ export const StyleInputBox = styled.input`
     padding: 20px 30px;
     font-size: 25px;
     border: none;
-    transition: 0.s;
+    transition: 0.2s;
     box-shadow: inset 0 0 5px black;
     &:focus {
         box-shadow: 0 0 10px 1000px rgba(0, 0, 0, 0.5);
@@ -67,24 +98,16 @@ export const StyleInputSubmit = styled.button`
     }
 `;
 
-export const StyleInput = styled.form`
-    display: flex;
-    width: 95%;
-    position: relative;
-    align-items: center;
-    @media(max-width: 700px) {
-        width: 95%;
-    }
-`;
 
 export const StyleContainer = styled.div`
     display: flex;
-    width: 95%;
+    width: 100%;
     margin-top: 10px;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
+    gap: 100px;
     @media(max-width: 700px) {
-        width: 95%;
+        width: 100%;
         flex-direction: column;
     }
 `;
@@ -97,10 +120,11 @@ interface props {
 
 export const StyleTodos = styled.div<props> `
     display: flex;
-    width: 45%;
+    width: 40%;
     flex-direction: column;
     padding: 15px;
     border-radius: 5px;
+    
     ${props => props.isDraggingOver ? 
         `background-color: rgb(43, 246, 81);` : 
         `background-color: rgb(43, 206, 81)`
@@ -181,3 +205,38 @@ export const StyleTodosSingle = styled.form<props>`
         `box-shadow: 1px 1px 1px black;`
     };
 `;
+
+export const StyleForm = styled.form`
+    display: flex;
+    margin: 50px auto;
+    width: 50%;
+`;
+
+export const BoxForm = styled(Box)`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    margin-bottom: 20px;
+`;
+
+export const InputForm = styled(TextField)`
+
+`;
+
+export  const ButtonForm = styled(Button)`
+    width: 100%;
+`;
+
+export const ContainerForm = styled(Container)`
+    width: 100%; 
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const TextRed = styled.div`
+    color: red;
+`;
+

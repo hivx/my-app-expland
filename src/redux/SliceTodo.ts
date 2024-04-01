@@ -11,11 +11,11 @@ interface TodoState {
 //load trang thai cua localStorage
 const loadState = () => {
   try {
-    const serializedState = localStorage.getItem('todoState');
+    const serializedState = localStorage.getItem('TodoState');
     if (serializedState === null) {
       return undefined; //tra ve ko xac dinh
     }
-    return JSON.parse(serializedState);//co thi load todoState
+    return JSON.parse(serializedState);//co thi load TodoState
   } catch (err) {//bat loi
     return undefined;
   }
@@ -25,7 +25,7 @@ const loadState = () => {
 const saveState = (state: TodoState) => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem('todoState', serializedState); //luu vao serializedState tuong tuong voi todoState
+    localStorage.setItem('TodoState', serializedState); //luu vao serializedState tuong tuong voi TodoState
   } catch {
     console.log("error");//bat loi
   }
@@ -39,7 +39,7 @@ const initialState: TodoState = loadState() || {
 
 const todoSlice = createSlice({
   name: 'todos',
-  initialState,
+  initialState: initialState,
   reducers: {
     setTodo: (state, action: PayloadAction<string>) => {
       state.todo = action.payload;

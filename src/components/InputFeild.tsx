@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import { setTodo } from '../redux/Slice';
+import { setTodo } from '../redux/SliceTodo';
 import { useDispatch } from 'react-redux';
-import { StyleInputBox, StyleInput, StyleInputSubmit } from './Container.styled';
+import { StyleInputBox, StyleInput, StyleInputSubmit } from '../Container.styled';
 
 //tao interface co cac du lieu de truyen vao
 interface Props {
