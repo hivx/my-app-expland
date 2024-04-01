@@ -1,75 +1,70 @@
 import React from 'react'
-import "./styles.css";
-import { Todo } from '../model';
+import { Todo } from '../redux/Store';
 import SingleTodo from './SingleTodo';
 import { Droppable } from 'react-beautiful-dnd';
-
+import { StyleContainer, StyleTodos, StyleTodosRemove,
+  StyleTodosHeading } from '../Container.styled'
 
 interface Props {
   todos: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-  CompletedTodos: Todo[];
-  setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  completedTodos: Todo[];
 }
 // const TodoList = ({todos, setTodos, CompletedTodos, setCompletedTodos}: Props  ) => {//Functional Component
-const TodoList: React.FC<Props> = ({ todos, setTodos, CompletedTodos, setCompletedTodos}) => {
+const TodoList: React.FC<Props> = ({todos, completedTodos}) => {
+  
   return (
-    <div className="container">
+    <StyleContainer>
       <Droppable droppableId="TodosList">
-        {
-          //snapshot de xu ly khi keo tha cac singletodo
+        {//snapshot de xu ly them css cho class todo khi keo tha
           (provided, snapshot) => (
-            <div 
-              className={`todos ${snapshot.isDraggingOver ? "dragactive" : ""}`} 
-              ref={provided.innerRef}
-              {...provided.droppableProps} //truyen du lieu vao mang
-            >
-            <span className="todos__heading">
-              Active Tasks
-            </span>
-              {todos.map((todo, index) => (// lap qua cac phan tu trong mang
-                  <SingleTodo
-                    index={index} 
-                    todo={todo}
-                    key={todo.id} //tao id cho moi phan tu
-                    todos={todos}
-                    setTodos={setTodos}
-                  />
-              ))}
-              {/*luu lai trang thai*/}
-              {provided.placeholder}
-            </div>
+          <StyleTodos
+            ref={provided.innerRef}
+            {...provided.droppableProps} //truyen du lieu vao mang
+            isDraggingOver={snapshot.isDraggingOver}
+          >
+          <StyleTodosHeading>
+            Active Tasks
+          </StyleTodosHeading>
+          {todos.map((todo, index) => (// lap qua cac phan tu trong mang
+              <SingleTodo
+                index={index}
+                todo={todo}
+                key={todo.id} //lay id cho moi phan tu
+              />
+          ))}
+          {/*luu lai trang thai*/}
+          {provided.placeholder}
+          </StyleTodos>
+          )
+        }
+        </Droppable>
+        <Droppable droppableId="Completed Tasks">
+        {
+          (provided, snapshot) => (
+          <StyleTodosRemove
+          //todos remove tuc la ap dung 2 css todo va remove
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            isDraggingOver={snapshot.isDraggingOver}
+          >
+          <StyleTodosHeading>
+            Completed Tasks
+          </StyleTodosHeading>
+          {completedTodos.map((todo, index) => (// lap qua cac phan tu trong mang
+              <SingleTodo
+                index={index}
+                todo={todo}
+                key={todo.id} //lay id cho moi phan tu
+              />
+          ))}
+          {/*luu lai trang thai*/}
+          {provided.placeholder}            
+          </StyleTodosRemove>
           )
         }
       </Droppable>
-      <Droppable droppableId="TodosRemove">
-        {
-          (provided, snapshot) => (
-            <div 
-              className={`todos remove ${snapshot.isDraggingOver ? "dragcomplete" : ""}`} 
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-            <span className="todos__heading">
-              Completed Tasks
-            </span>
-              {CompletedTodos.map((todo, index) => (// duyet cac phan tu cua mang
-                  <SingleTodo
-                    index={index}
-                    todo={todo}
-                    key={todo.id} //tao id cho moi phan tu
-                    todos={CompletedTodos}
-                    setTodos={setCompletedTodos}
-                  />
-              ))}
-              {/*luu lai trang thai*/}
-              {provided.placeholder}
-            </div>
-          )
-        }
-      </Droppable>
-    </div>
-  )
+    </StyleContainer>
+  );
 };
 
 export default TodoList;

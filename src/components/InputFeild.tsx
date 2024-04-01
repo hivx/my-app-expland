@@ -1,37 +1,36 @@
 import React, { useRef } from 'react';
-import "./styles.css"; //import css
+import { setTodo } from '../redux/SliceTodo';
+import { useDispatch } from 'react-redux';
+import { StyleInputBox, StyleInput, StyleInputSubmit } from '../Container.styled';
 
 //tao interface co cac du lieu de truyen vao
 interface Props {
   todo: string;
-  setTodo: React.Dispatch<React.SetStateAction<string>>;
   handleAdd: (e: React.FormEvent) => void;
 }
 
-const InputFeild: React.FC<Props> = ({todo, setTodo, handleAdd}) => {
-  //tao bien inputRef de tham chieu den 1 phan tu trong html, o day la input_box
+const InputFeild: React.FC<Props> = ({todo, handleAdd}) => {
+  const dispatch = useDispatch();
+  //tao bien inputRef de tham chieu den 1 phan tu trong html, o day la input__box
   const inputRef = useRef<HTMLInputElement> (null);
   return (
     //xu ly su kien khi nhan gui
-    <form className="input" onSubmit={(e) => {
-        handleAdd(e)
-        inputRef.current?.blur(); //xu ly loai bo trang thai focus, dau ? de xac dinh nut hien tai co null khong
+    <StyleInput onSubmit={(e) => {
+      handleAdd(e)
+      inputRef.current?.blur(); //xu ly loai bo trang thai focus, dau ? de xac dinh nut hien tai co null khong
     }}>
       
-      <input //HTML de tao o nhap lieu
-       ref={inputRef}
-       type="input"
-       value={todo}
-       onChange={(e) => setTodo(e.target.value)}
-       placeholder='Enter a task'
-       className='input_box'
+      <StyleInputBox //HTML de tao o nhap lieu
+        ref={inputRef}
+        type="input"
+        value={todo}
+        onChange={(e) => dispatch(setTodo(e.target.value))}
+        placeholder='Enter a task'
       />
-      <button className="input_submit" type="submit">
+      <StyleInputSubmit type="submit">
         Go
-      </button>
-    </form>
-      
-    
+      </StyleInputSubmit>
+    </StyleInput>
   )
 }
 
