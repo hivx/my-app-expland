@@ -1,7 +1,7 @@
 Phần mở rộng:
 + ![alt text](image.png)
 + thêm các component dùng react-hook-form: form home.
-+ form home có các trường dùng để luu thông tin người dùng.
++ form home có các trường dùng để lưu thông tin người dùng.
     firstname: string;
     lastname: string;
     age: number;
