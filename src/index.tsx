@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-
+//router phai dat o ngoai de co the xu ly duoc tat cac cac react-hook-form, useNavigate
 root.render(
   <Router>
     <Provider store={store}>

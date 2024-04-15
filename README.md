@@ -1,5 +1,5 @@
 Phần mở rộng:
-+ ![alt text](image.png)
++ ![alt text](src\asset\image-1.png)
 + thêm các component dùng react-hook-form: form home.
 + form home có các trường dùng để luu thông tin người dùng.
     firstname: string;
@@ -9,7 +9,7 @@ Phần mở rộng:
 + dùng redux lưu dữ liệu người dùng vào store.
 + store vẫn dùng localstore để lưu dữ liệu trên trình duyệt.
 + dùng react-router-dom để chuyển trang với useNavigate và routes.
-+ ![alt text](image-2.png)
++ ![alt text](src\asset\image-2.png)
 + thêm thông tin người dùng và nút Exit để quay lại home bằng useNavigate.
 + react-hook-form dùng     
 const { 
@@ -19,8 +19,8 @@ const {
     formState: {errors, isSubmitting} xử lý lỗi và 
         đặt điều kiện cho sự kiện qua isSubmitting kiểu boolean.
 } = useForm<InformationForm>();
-+ ![alt text](image-4.png)
-+ ![alt text](image-3.png)
++ ![alt text](src\asset\image-4.png)
++ ![alt text](src\asset\image-3.png)
 + thêm các điều kiện cho các trường để xử lý lỗi.
 + đặt các sự kiện enter nhập trường tiếp theo, settimeout thêm thời gian xử lý,...
 + sử dụng MUI cho các icon, container,...

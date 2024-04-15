@@ -39,6 +39,7 @@ const initialState: FormState = loadState() || {
 }
 
 // Create a slice
+//tao reducer luu du lieu nguoi dung vao store
 const formSlice = createSlice({
   name: 'form',
   initialState: initialState,

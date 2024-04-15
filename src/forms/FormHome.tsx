@@ -18,8 +18,10 @@ interface InformationForm {
 const InfoForm: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    //lay du lieu tu store
     const formData = useSelector((state: RootState) => state.formData);
 
+    //them settimeout de tao do tre xu ly
     const onSubmitSuccess = () => {
         setTimeout(() => {
             navigate('/todo');
@@ -33,6 +35,7 @@ const InfoForm: React.FC = () => {
         formState: {errors, isSubmitting} 
     } = useForm<InformationForm>();
 
+    //dat gia tri mac dinh cho cac truong, thuan loi cho nguoi dung
     useEffect(() => {
         if (formData) {
           setValue('firstname', formData.firstname);
@@ -42,13 +45,15 @@ const InfoForm: React.FC = () => {
         }
       }, [formData, setValue]);
 
-    const onSubmit: SubmitHandler<InformationForm> = async(data) => {    
+    const onSubmit: SubmitHandler<InformationForm> = async(data) => {
+        //tao do tre voi issubmitting
         await new Promise((resolve) => setTimeout(resolve, 500));
         // alert(JSON.stringify(data));
-        dispatch(saveForm(data));
-        onSubmitSuccess();
+        dispatch(saveForm(data));//luu du lieu
+        onSubmitSuccess();//su kien submit
     }
 
+    //them su kien nut enter de nhap lieu de dang hon
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             //...
@@ -60,6 +65,7 @@ const InfoForm: React.FC = () => {
             <CssBaseline />
             <ContainerForm fixed>
                 <BoxForm>
+                    {/*tham chieu den cac truong va dat dieu kien xu ly loi*/}
                     <InputForm
                         {...register("firstname", {
                             pattern: /^[a-zA-ZÀ-ỹ\s]+$/,
@@ -68,7 +74,7 @@ const InfoForm: React.FC = () => {
                                 message: "Maximum firstname of 10 characters.",
                             },
                         })}
-                        required
+                        required //cai nay la cua MUI, truong bat buoc phai nhap
                         type="text"
                         label="First Name"
                         variant="filled"

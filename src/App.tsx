@@ -1,29 +1,29 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'; //su dung redux
 import { RootState } from "./redux/Store";
 import InputFeild from './components/InputFeild';//import inputfeild
 import TodoList from './components/TodoList';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';//them su kien keo tha voi thu vien
 import { addTodo, setTodo, setTodos, setCompletedTodos, select } from './redux/SliceTodo';
 import { StyledApp, StyleHeading, StyleMenu, StyleMenuList,
   StyleContainerHeading } from './Container.styled';
 import InfoForm from './forms/FormHome';
 import { 
   Routes, 
-  Route, 
+  Route,
   useNavigate,
-} from "react-router-dom";
+} from "react-router-dom"; //xu ly su kien chuyen trang, dinh huong trang
 import EditForm from './forms/FormEdit';
 
 const App: React.FC = () => {
-  const todo = useSelector(select);
-  const todos = useSelector((state: RootState) => state.arrayTodo.todos);
+  const todo = useSelector(select);//lay du lieu
+  const todos = useSelector((state: RootState) => state.arrayTodo.todos);//lay du lieu
   const completedTodos = useSelector((state: RootState) => state.arrayTodo.completedTodos);
   const formData = useSelector((state: RootState) => state.formData);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch();//ban du lieu
+  const navigate = useNavigate();//dung useNavigate dechuyen trang
 
-  const handleExitClick = () => {
+  const handleExitClick = () => { //su kien exit chuyen ve home
     setTimeout(() => {
       navigate('/');
     }, 500);
@@ -82,7 +82,7 @@ const App: React.FC = () => {
   };
 
   return (
-    //HTML
+    //HTML voi styled-component
       <StyledApp>
         <Routes>
           <Route path="/" element={
@@ -91,6 +91,7 @@ const App: React.FC = () => {
               <InfoForm />
             </>
           } />
+          {/*dat cac path de thay doi trang*/}
           <Route path="/todo" element={
             <>
               <StyleContainerHeading>
